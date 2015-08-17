@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+   <title>Willis HQ - Category: debugging</title>
+   
+   <link></link>
+   <description></description>
+   <language>en-us</language>
+   <managingEditor>Tim Willis</managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+    <item>
+  <title>Using MITMProxy for Testing and Debugging</title>
+  <link>http://realjenius.com/blog/2014/10/07/debugging-with-mitmproxy/</link>
+  <author>R.J. Lorimer</author>
+  <pubDate>2014-10-07T15:02:00-05:00</pubDate>
+  <guid>http://realjenius.com/blog/2014/10/07/debugging-with-mitmproxy/</guid>
+  <description><![CDATA[
+     <p>In web development, you might occasionally get the urge to update a production server directly. <strong>Don’t do that</strong>. It may seem harmless to add some logging to better understand a bug, or make a quick change to test a proposed fix. Whatever the reason, manually updating code in production is risky business. Something will probably break, and undoing the change may not be as simple as a quick revert. At that point users will be impacted, and your boss will not be pleased.</p>
+
+<h2 id="introducing-mitmproxy">Introducing mitmproxy</h2>
+
+<p><a href="http://mitmproxy.org/index.html">MITMProxy</a> <em>is an interactive, SSL-capable man-in-the-middle proxy for HTTP with a console interface</em>. It allows us to <em>intercept, modify, replay and save HTTP/S traffic</em>, live or via python scripts. By directing our browser’s traffic through this tool, we can dynamically modify what gets sent to the server and what we get back from the server, without any danger of impacting the rest of our users.</p>
+
+<h2 id="why-not-just-use-dev-tools">Why Not Just Use Dev Tools?</h2>
+
+<p>The developer tools availble in most modern browsers are great. They allow you to inspect and modify html, css, and javascript with ease. You can set breakpoints, inspect call stacks, experiment in the interactive console, and so much more. Still, there are several tasks that are difficult or impossible with dev tools. It is difficult to persist changes through a refresh or modify request/response metadata. If you want to artifically
+delay an ajax call to test a timing issue, good luck.</p>
+
+<p>MITMProxy on the other hand is great at these sort of tasks. You can intercept, delay, cancel, or modify any aspect of the request or response with ease. And since it’s running locally, you don’t need access to the server to see how these changes would impact the client. It is a great tool to use side-by-side with browser dev tools to expand our debugging capabilities.</p>
+
+<h2 id="a-mitmproxy-examples">A MITMProxy Examples</h2>
+
+<h3 id="a-timing-issue">A Timing Issue</h3>
+
+<p>Let’s say we have a potential timing issue in our webapp. A user action triggers an ajax call, which retrieves some state from the server and sets cookies on the client. Another user action directs the browser to navigate to another page. If the user triggers these actions in quick succession, our the ajax call may not have completed, resulting in the client unexpectedly lacking some state (cookies).</p>
+
+<p>This is difficult to test though, because this ajax call usually completes quickly enough that it is difficult to reliably trigger the second action before the first finishes. Using MITMProxy, we can trigger the first action, intercept the ajax call, and trigger the second action with full confidence that the call has not completed. This allows us to observe how the second action impacts the system.</p>
+
+<h3 id="checking-a-hotfix">Checking a Hotfix</h3>
+
+<p>Assuming there was a timing issue that has now been fixed and verified in a dev enviornment, we’re ready for production. But for sanity’s sake, we’d like to do a controlled production test before fully rolling out. Using mitmproxy, we can intercept the production javascript file and replace it with our local copy. Then, running through the steps we used to find the bug, we can verify that the issue no longer exists.</p>
+
+<h2 id="using-mitmproxy">Using MITMProxy</h2>
+
+<p>The <a href="http://mitmproxy.org/doc/index.html">mitmproxy documentation</a> covers installation and basic use of mitmproxy far better than I could do here. At some point, I may write a cheat sheet of common commands, but that is outside the scope of this post.</p>
+
+<p>For now, let’s look at how to accomplish specific tasks with mitmproxy.</p>
+
+<h3 id="intercepting-a-single-request">Intercepting a Single Request</h3>
+
+<p>Goal: Intercept calls to /ajax/something</p>
+
+<ol>
+  <li>From the interactive list view, hit <code>i</code> to declare an intercept filter.</li>
+  <li>Enter the filter <code>~u /ajax/something</code></li>
+  <li>Refresh the page that makes the call to /ajax/something. The request that gets intercepted will be colored orange.</li>
+  <li>When you’re ready to let the intercepted request pass, use <code>j</code> or <code>k</code> to navigate to it and hit <code>a</code> (for accept) to let it pass through.</li>
+  <li>Hit <code>a</code> again to let the response pass through.</li>
+</ol>
+
+<h3 id="replacing-a-file-with-a-local-copy">Replacing a File with a Local Copy</h3>
+
+<p>Goal: Intercept calls to google and replace the response content with a local file.</p>
+
+<p>First, let’s create a dummy file. </p>
+
+<ol>
+  <li><code>cat &gt; dummy.txt</code> </li>
+  <li>Type whatever you want </li>
+  <li>Hit <code>Ctrl + d</code> to write the file.</li>
+</ol>
+
+<p>Now, let’s create the replacment script.</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">Replacement</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&#39;Replacement&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;pattern&#39;</span><span class="p">,</span> <span class="s">&#39;filepath&#39;</span><span class="p">])</span>
+<span class="n">REPLACEMENTS</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">Replacement</span><span class="o">.</span><span class="n">_make</span><span class="p">,</span> <span class="p">[</span>
+    <span class="c"># pattern, filepath</span>
+    <span class="p">(</span><span class="s">&#39;~u google&#39;</span><span class="p">,</span> <span class="s">&#39;dummy.txt&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+    <span class="n">flow</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">anticache</span><span class="p">()</span>
+    <span class="n">flow</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">anticomp</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="n">REPLACEMENTS</span><span class="p">:</span>
+        <span class="c"># test for filter patterns with flow.match</span>
+        <span class="k">if</span> <span class="n">flow</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></code></pre></div>
+
+<p>At this point, we can run mitmproxy with this script enabled <code>mitmproxy -s replace_content.py</code>. From the browser, open <code>www.google.com</code>, and observe your dummy.txt file instead.</p>
+
+<h3 id="modifying-a-specific-value">Modifying a Specific Value</h3>
+
+<p>Goal: Transform all instances of <code>the</code> to <code>teh</code></p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+    <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;teh&#39;</span><span class="p">)</span></code></pre></div>
+
+<p>Run <code>mitmproxy -s the_teh.py</code> and observe.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>MITMProxy is awesome.  <a href="http://mitmproxy.org/index.html">Go use it.</a></p>
+
+
+  ]]></description>
+</item>
+
+
+</channel>
+</rss>
