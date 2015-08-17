@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using MITMProxy for Testing and Debugging"
-date: 2014-10-07 20:02:00 -0500
+date: 2014-10-07 20:02:00 -0000
 comments: true
 categories:
   - debugging
