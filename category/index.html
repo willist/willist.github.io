@@ -1,0 +1,14 @@
+---
+layout: post
+---
+Categories:
+
+<ul>
+{% for cat in site.categories %}
+  <li>
+    <a href="/category/{{ cat[0] }}/">{{ cat[0] }}</a>
+    <a href="/category/{{ cat[0] }}/feed.xml"><img src="/images/feed-icon-14x14.png"></img></a>
+  </li>
+{% endfor %}
+
+
