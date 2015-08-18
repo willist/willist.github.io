@@ -7,6 +7,50 @@
     <atom:link href="http://willist.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Luke 18; Job 29-30</title>
+        <description>&lt;h1 id=&quot;luke-18&quot;&gt;Luke 18&lt;/h1&gt;
+
+&lt;h2 id=&quot;the-unrighteous-judge&quot;&gt;The Unrighteous Judge&lt;/h2&gt;
+
+&lt;p&gt;In this parable, a widow seeks legal protection from her opponent, but the judge hearing the case does not listen.  She continues to petition the judge until he granted her protection.  The Lord then says that if a widow can get through to an unsympathetic judge by persistently asking, a believer petitioning God may be answered quickly.&lt;/p&gt;
+
+&lt;p&gt;I have been hearing this message a lot lately.  It is not enough to pray at night before bed or occasionally pray when in need.  God wants to be in conversation with us daily.  We do not need to pray eloquent, flowery prayers over long stretches of the day.  Instead, we should be offering up short, frequent prayers to God.  We should seek to communicate our thoughts, our struggles, and our desires to Him.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-pharisee-and-the-publican&quot;&gt;The Pharisee and the Publican&lt;/h2&gt;
+
+&lt;p&gt;Jesus tells a story of two men, one who was proud of his virtuous lifestyle and one who was ashamed of his sins.  The proud man prayed to God of all the things he did right and the good life he led.  The ashamed man prayed for mercy.  Jesus said of the humble man who prayed for mercy, “I tell you, this man went to his house justified rather than the other; for everyone who exalts himself will be humbled, but he who humbles himself will be exalted.”&lt;/p&gt;
+
+&lt;p&gt;It is easy to focus on those things I do well, and think myself a righteous man.  It is difficult to be honest about my sins and my flaws.  For a long time, when I thought of Christians, I thought of the modern day Pharisees - of the people who get so caught up in their virtue and their moral superiority that they forget that we are all sinners saved through the grace of Jesus.  I think I have fallen into that trap as well, though as an unbeliever or at least as a doubter.
+As I return to the church, I pray that I can keep my focus on God and allow him to lead in my life.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-rich-young-ruler&quot;&gt;The Rich Young Ruler&lt;/h2&gt;
+
+&lt;p&gt;A rich man asked Jesus how to enter the kingdom of heaven.  Jesus said to follow the Ten Commandments.  When the rich man replied that he did and had since his youth, Jesus told the rich man to sell all his possessions and come with him (Jesus).  When the rich man found this difficult to do, Jesus said “How hard it is for those who are wealthy to enter the kingdom of God! For it is easier for a camel to go through the eye of a needle than for a rich man to enter the kingdom of God.”&lt;/p&gt;
+
+&lt;p&gt;To me, this parable is about Idolatry.  A rich man is far more prone to stray from God than a poor man, because the rich man has so many distractions in his life.  I struggle with this daily.  Far too often, I focus on the things around me - the distractions in my life, rather than the relationships that should be most important.  I need to focus on my relationship with God and then with my family above all the fun and distracting things in my life.&lt;/p&gt;
+
+&lt;h2 id=&quot;bartimaeus-receives-sight&quot;&gt;Bartimaeus Receives Sight&lt;/h2&gt;
+
+&lt;p&gt;A blind beggar on the side of the road called out to Jesus, “Son of David, have mercy on me.”  As the followers of Jesus tried to shush him, he called out again, “Son of David, have mercy on me.”  Jesus spoke to the man, and granted his request for sight, saying “your faith has made you well.”&lt;/p&gt;
+
+&lt;p&gt;On its surface, this is a simple story about having faith in God, but it is so difficult to truly have this level of faith.  So often, I try to fix the problems in my life on my own.  I search for solutions and for answers, but the true path is to give those problems over to God.  The answers may not reflect the answers I’m hoping for, but I need to trust that God’s plan is far greater than my own.&lt;/p&gt;
+
+&lt;h1 id=&quot;job-29-30&quot;&gt;Job 29-30&lt;/h1&gt;
+
+&lt;p&gt;Job speaks of his glorious past.  He was prosperous and respected.  He had a great life, but now, he has fallen from grace.  He is mocked and goes hungry.  He is in constant pain and suffering.  He asks God for help, but his cries go unanswered.  Still, he does not curse God or deny him.&lt;/p&gt;
+
+&lt;p&gt;My life is good right now.  I have a wonderful family, a good job, a roof over my head, and generally good health.  God does not promise that this will continue, but he does promise an eternal reward for those who stay strong in Him.  I do not know what the future holds, but I know that regardless of the outcome, I need to let God take control.&lt;/p&gt;
+
+&lt;h1 id=&quot;prayer&quot;&gt;Prayer&lt;/h1&gt;
+
+&lt;p&gt;Lord, please help me to keep you in the forefront of my life. Help me to stay in conversation with you throughout the day - not just to ask for help with my struggles but to include you in all aspects of my life. Help me to be righteous but also to be humble.  Protect my heart from the temptations of this world and use me to do your work. Finally, Lord, I pray that I can keep my faith in you no matter how my life turns out.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 18 Aug 2015 10:20:00 -0500</pubDate>
+        <link>http://willist.github.io/blog/2015/08/18/l3/</link>
+        <guid isPermaLink="true">http://willist.github.io/blog/2015/08/18/l3/</guid>
+      </item>
+    
+      <item>
         <title>Using MITMProxy for Testing and Debugging</title>
         <description>&lt;p&gt;In web development, you might occasionally get the urge to update a production server directly. &lt;strong&gt;Don’t do that&lt;/strong&gt;. It may seem harmless to add some logging to better understand a bug, or make a quick change to test a proposed fix. Whatever the reason, manually updating code in production is risky business. Something will probably break, and undoing the change may not be as simple as a quick revert. At that point users will be impacted, and your boss will not be pleased.&lt;/p&gt;
 
