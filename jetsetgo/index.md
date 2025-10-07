@@ -8,6 +8,11 @@ permalink: /jetsetgo/
 
 Blast off into an endless jetpack adventure! Master variable-thrust controls as you soar through dynamically generated obstacles and reach new heights.
 
+<p align="center">
+  <img src="/images/jetsetgo/IMG_2986.PNG" style="width: 200px; margin: 10px;" alt="Jet Set Go Gameplay" />
+  <img src="/images/jetsetgo/IMG_2987.PNG" style="width: 200px; margin: 10px;" alt="High Altitude Action" />
+</p>
+
 ## Features
 
 - **Intuitive Jetpack Controls** - Touch and drag to control thrust intensity
