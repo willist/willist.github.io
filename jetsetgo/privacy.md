@@ -36,9 +36,7 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 
 ## Contact
 
-If you have any questions about this Privacy Policy, please contact:
-- Email: [Your contact email]
-- Website: https://blog.willishq.com
+If you have any questions about this Privacy Policy, please visit: https://blog.willishq.com
 
 ---
 
