@@ -4,8 +4,6 @@ title: Jet Set Go!
 permalink: /jetsetgo/
 ---
 
-# Jet Set Go!
-
 **Gravity is just a suggestion**
 
 Blast off into an endless jetpack adventure! Master variable-thrust controls as you soar through dynamically generated obstacles and reach new heights.
