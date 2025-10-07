@@ -4,8 +4,6 @@ title: Privacy Policy - Jet Set Go
 permalink: /jetsetgo/privacy/
 ---
 
-# Privacy Policy
-
 **Effective Date:** October 6, 2025
 
 Jet Set Go ("the Game") is committed to protecting your privacy. This Privacy Policy explains our data collection practices.
