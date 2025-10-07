@@ -12,11 +12,13 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Willis HQ" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201508171750" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202510062154" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     
 
 
@@ -80,6 +82,30 @@
       </nav>
       <div class="clearfix"></div>
       
+        <div class="social-icons">
+  <div class="left">
+    
+      <a class="fa fa-github" href="https://github.com/willist"></a>
+    
+    
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
     </div>
   </div>
 </header>
@@ -138,58 +164,58 @@ delay an ajax call to test a timing issue, good luck.</p>
 <p>Goal: Intercept calls to /ajax/something</p>
 
 <ol>
-  <li>From the interactive list view, hit <code>i</code> to declare an intercept filter.</li>
-  <li>Enter the filter <code>~u /ajax/something</code></li>
+  <li>From the interactive list view, hit <code class="language-plaintext highlighter-rouge">i</code> to declare an intercept filter.</li>
+  <li>Enter the filter <code class="language-plaintext highlighter-rouge">~u /ajax/something</code></li>
   <li>Refresh the page that makes the call to /ajax/something. The request that gets intercepted will be colored orange.</li>
-  <li>When you’re ready to let the intercepted request pass, use <code>j</code> or <code>k</code> to navigate to it and hit <code>a</code> (for accept) to let it pass through.</li>
-  <li>Hit <code>a</code> again to let the response pass through.</li>
+  <li>When you’re ready to let the intercepted request pass, use <code class="language-plaintext highlighter-rouge">j</code> or <code class="language-plaintext highlighter-rouge">k</code> to navigate to it and hit <code class="language-plaintext highlighter-rouge">a</code> (for accept) to let it pass through.</li>
+  <li>Hit <code class="language-plaintext highlighter-rouge">a</code> again to let the response pass through.</li>
 </ol>
 
 <h3 id="replacing-a-file-with-a-local-copy">Replacing a File with a Local Copy</h3>
 
 <p>Goal: Intercept calls to google and replace the response content with a local file.</p>
 
-<p>First, let’s create a dummy file. </p>
+<p>First, let’s create a dummy file.</p>
 
 <ol>
-  <li><code>cat &gt; dummy.txt</code> </li>
-  <li>Type whatever you want </li>
-  <li>Hit <code>Ctrl + d</code> to write the file.</li>
+  <li><code class="language-plaintext highlighter-rouge">cat &gt; dummy.txt</code></li>
+  <li>Type whatever you want</li>
+  <li>Hit <code class="language-plaintext highlighter-rouge">Ctrl + d</code> to write the file.</li>
 </ol>
 
 <p>Now, let’s create the replacment script.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 
-<span class="n">Replacement</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&#39;Replacement&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;pattern&#39;</span><span class="p">,</span> <span class="s">&#39;filepath&#39;</span><span class="p">])</span>
-<span class="n">REPLACEMENTS</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">Replacement</span><span class="o">.</span><span class="n">_make</span><span class="p">,</span> <span class="p">[</span>
-    <span class="c"># pattern, filepath</span>
-    <span class="p">(</span><span class="s">&#39;~u google&#39;</span><span class="p">,</span> <span class="s">&#39;dummy.txt&#39;</span><span class="p">),</span>
+<span class="n">Replacement</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">'Replacement'</span><span class="p">,</span> <span class="p">[</span><span class="s">'pattern'</span><span class="p">,</span> <span class="s">'filepath'</span><span class="p">])</span>
+<span class="n">REPLACEMENTS</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">Replacement</span><span class="p">.</span><span class="n">_make</span><span class="p">,</span> <span class="p">[</span>
+    <span class="c1"># pattern, filepath
+</span>    <span class="p">(</span><span class="s">'~u google'</span><span class="p">,</span> <span class="s">'dummy.txt'</span><span class="p">),</span>
 <span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
-    <span class="n">flow</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">anticache</span><span class="p">()</span>
-    <span class="n">flow</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">anticomp</span><span class="p">()</span>
+    <span class="n">flow</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">anticache</span><span class="p">()</span>
+    <span class="n">flow</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">anticomp</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="n">REPLACEMENTS</span><span class="p">:</span>
-        <span class="c"># test for filter patterns with flow.match</span>
-        <span class="k">if</span> <span class="n">flow</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">pattern</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></code></pre></div>
+        <span class="c1"># test for filter patterns with flow.match
+</span>        <span class="k">if</span> <span class="n">flow</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="n">replacement</span><span class="p">.</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">replacement</span><span class="p">.</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">flow</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">()</span></code></pre></figure>
 
-<p>At this point, we can run mitmproxy with this script enabled <code>mitmproxy -s replace_content.py</code>. From the browser, open <code>www.google.com</code>, and observe your dummy.txt file instead.</p>
+<p>At this point, we can run mitmproxy with this script enabled <code class="language-plaintext highlighter-rouge">mitmproxy -s replace_content.py</code>. From the browser, open <code class="language-plaintext highlighter-rouge">www.google.com</code>, and observe your dummy.txt file instead.</p>
 
 <h3 id="modifying-a-specific-value">Modifying a Specific Value</h3>
 
-<p>Goal: Transform all instances of <code>the</code> to <code>teh</code></p>
+<p>Goal: Transform all instances of <code class="language-plaintext highlighter-rouge">the</code> to <code class="language-plaintext highlighter-rouge">teh</code></p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
-    <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;teh&#39;</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+    <span class="n">flow</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'the'</span><span class="p">,</span> <span class="s">'teh'</span><span class="p">)</span></code></pre></figure>
 
-<p>Run <code>mitmproxy -s the_teh.py</code> and observe.</p>
+<p>Run <code class="language-plaintext highlighter-rouge">mitmproxy -s the_teh.py</code> and observe.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 
