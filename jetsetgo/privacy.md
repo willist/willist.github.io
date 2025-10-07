@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Privacy Policy - Jet Set Go
+title: Jet Set Go! - Privacy Policy
 permalink: /jetsetgo/privacy/
 ---
 

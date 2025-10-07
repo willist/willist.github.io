@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Support - Jet Set Go
+title: Jet Set Go! - Support
 permalink: /jetsetgo/support/
 ---
 
